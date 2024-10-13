@@ -16,6 +16,10 @@ app.use(
 
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.status(200).send("Server is running smoothly.");
+});
+
 const startServer = async () => {
   await connectDB();
   app.listen(PORT, () =>
