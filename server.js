@@ -9,7 +9,7 @@ const PORT = process.env.PORT;
 
 app.use(
   cors({
-    origin: "https://confide-service.netlify.app/",
+    origin: "http://confide-service.netlify.app",
     credentials: true,
   })
 );
