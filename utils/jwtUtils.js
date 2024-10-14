@@ -1,4 +1,4 @@
-const jwt = require("jsonwebtoken"); 
+const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT_SECRET;
 const REFRESH_SECRET = process.env.REFRESH_SECRET;
 
@@ -10,19 +10,19 @@ module.exports = {
     };
 
     return jwt.sign(payload, JWT_SECRET, {
-      algorithm: 'HS256',
-      expiresIn: '15m',
+      algorithm: "HS256",
+      expiresIn: "15m",
     });
   },
   //RefreshToken 발급
-  refresh: (userId) => { 
+  refresh: (userId) => {
     const payload = {
       id: userId,
     };
 
     return jwt.sign(payload, REFRESH_SECRET, {
-      algorithm: 'HS256',
-      expiresIn: '1d',
+      algorithm: "HS256",
+      expiresIn: "1d",
     });
   },
   //AccessToken 검증
@@ -44,13 +44,13 @@ module.exports = {
   //RefreshToken 검증
   refreshVerify: (refreshToken) => {
     let decoded = null;
-    try{
+    try {
       decoded = jwt.verify(refreshToken, REFRESH_SECRET);
       return {
         ok: true,
         id: decoded.id,
       };
-    }catch(err){
+    } catch (err) {
       return {
         ok: false,
         message: err.message,
@@ -59,10 +59,10 @@ module.exports = {
   },
   //RefershToken 삭제
   clearRefreshTokenCookie: (res) => {
-    res.clearCookie('refreshToken', {
+    res.clearCookie("refreshToken", {
       httpOnly: true,
       secure: true,
-      sameSite: 'Strict'
+      sameSite: "None",
     });
   },
-}
+};
