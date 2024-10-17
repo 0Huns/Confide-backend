@@ -59,7 +59,7 @@ const login = async (req, res) => {
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       secure: true,
-      sameSite: "None",
+      sameSite: "Strict",
     });
     //access 토큰 json으로 전송
     res.status(200).json({

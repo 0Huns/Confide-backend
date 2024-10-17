@@ -62,7 +62,7 @@ module.exports = {
     res.clearCookie("refreshToken", {
       httpOnly: true,
       secure: true,
-      sameSite: "None",
+      sameSite: "Strict",
     });
   },
 };
