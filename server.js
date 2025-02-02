@@ -5,7 +5,7 @@ const { connectDB } = require("./db");
 const { getDB } = require("./db");
 const router = require("./routes");
 const app = express();
-const PORT = process.env.PORT;
+const PORT = 80;
 
 app.use(
   cors({
@@ -18,6 +18,10 @@ app.use(express.json());
 
 app.get("/", (req, res) => {
   res.status(200).send("Server is running smoothly.");
+});
+
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "ok" });
 });
 
 const startServer = async () => {
