@@ -1,4 +1,5 @@
 require("dotenv").config();
+require("crypto");
 
 const kakaoCallback = async (req, res) => {
   //클라이언트에서 인가코드 받기
