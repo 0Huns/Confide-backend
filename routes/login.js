@@ -8,7 +8,7 @@ const KAKAO_REDIRECT_URI = process.env.KAKAO_REDIRECT_URI;
 
 const login = async (req, res) => {
   //클라이언트에서 인가코드 받기
-  const code = req.query.code;
+  const code = new URL(window.location.href).searchParams.get("code");
   try {
     //인가코드로 카카오 토큰 받아오기
     const authRes = await axios.post(
