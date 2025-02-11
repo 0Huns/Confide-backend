@@ -7,15 +7,15 @@ const KAKAO_CLIENT_ID = process.env.KAKAO_CLIENT_ID;
 const KAKAO_REDIRECT_URI = process.env.KAKAO_REDIRECT_URI;
 
 const login = async (req, res) => {
+  const db = getDB();
+
   //클라이언트에서 인가코드 받기
   const code = req.headers["code"];
   const state = req.headers["state"];
 
-  console.log("클라에서 받은 code:", code);
-  console.log("클라에서 받은 state:", state);
-  console.log("세션검증", req.session);
+  let sessionState = await db.collection("session").findOne({ state: state });
 
-  if (!req.session.oauteState || req.session.oauthState !== state) {
+  if (!sessionState || sessionState !== state) {
     return res.status(400).json({ error: "로그인 오류!" });
   }
 
@@ -49,7 +49,6 @@ const login = async (req, res) => {
     const userInfo = userRes.data;
     const userId = userInfo.id;
 
-    const db = getDB();
     let userCheck = await db.collection("users").findOne({ _id: userId });
     //사용자 ID가 DB에 없을 경우 등록
     if (!userCheck) {
@@ -82,6 +81,8 @@ const login = async (req, res) => {
       ok: false,
       message: err.message,
     });
+  } finally {
+    delete req.session.oauthState;
   }
 };
 

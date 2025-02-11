@@ -1,16 +1,14 @@
 require("dotenv").config();
 const crypto = require("crypto");
+const { getDB } = require("../db");
 
 const kakaoCallback = async (req, res) => {
   //클라이언트에서 인가코드 받기
+  const db = getDB();
   const code = req.query.code;
   const state = crypto.randomBytes(16).toString("hex");
-  req.session.oauthState = state;
-  await req.session.save();
-  console.log("세션 저장 확인", req.session.oauthState);
+  await db.collection("session").insertOne({ state: state });
 
-  console.log("카카오에서 받은 code:", req.query.code);
-  console.log("카카오에서 받은 state:", state);
   res.redirect(
     `https://confide-service.netlify.app/auth?code=${code}&state=${state}`
   );
