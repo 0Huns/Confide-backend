@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const kakaoCallback = async (req, res) => {
   if (!req.query.code) {
     if (!res.headersSent) {
@@ -14,3 +16,5 @@ const kakaoCallback = async (req, res) => {
     );
   }
 };
+
+module.exports = kakaoCallback;
