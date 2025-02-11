@@ -62,11 +62,10 @@ const login = async (req, res) => {
       sameSite: "None",
     });
     //access 토큰 json으로 전송
-    res.status(200).json({
-      accessToken,
-      userId,
-      redirectUrl: "https://confide-service.netlify.app/auth",
-    });
+    res.setHeader("accessToken", accessToken);
+    res.setHeader("userId", userId);
+
+    res.redirect("https://confide-service.netlify.app/auth");
   } catch (err) {
     res.status(400).send({
       ok: false,
