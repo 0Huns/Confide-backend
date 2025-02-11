@@ -13,7 +13,7 @@ const login = async (req, res) => {
 
   console.log("클라에서 받은 code:", code);
   console.log("클라에서 받은 state:", state);
-  console.log(req.session.oauthState);
+  console.log("세션검증", req.session.oauthState);
 
   if (!req.session.oauteState || req.session.oauthState !== state) {
     return res.status(400).json({ error: "로그인 오류!" });
