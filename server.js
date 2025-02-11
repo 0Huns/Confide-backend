@@ -4,7 +4,6 @@ const cors = require("cors");
 const { connectDB } = require("./db");
 const { getDB } = require("./db");
 const router = require("./routes");
-const session = require("express-session");
 const app = express();
 const PORT = process.env.PORT;
 
@@ -16,15 +15,6 @@ app.use(
 );
 
 app.use(express.json());
-
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true, httpOnly: true, sameSite: "Strict" },
-  })
-);
 
 app.get("/", (req, res) => {
   res.status(200).send("Server is running smoothly.");

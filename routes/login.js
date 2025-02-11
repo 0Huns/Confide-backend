@@ -14,9 +14,10 @@ const login = async (req, res) => {
   const state = req.headers["state"];
 
   let sessionState = await db.collection("session").findOne({ state: state });
+  console.log(sessionState);
 
   if (!sessionState || sessionState !== state) {
-    return res.status(400).json({ error: "로그인 오류!" });
+    return res.status(400).json({ error: "냐하!" });
   }
 
   try {
@@ -82,7 +83,7 @@ const login = async (req, res) => {
       message: err.message,
     });
   } finally {
-    delete req.session.oauthState;
+    await db.collection("sessions").deleteOne({ state: stateValue });
   }
 };
 
