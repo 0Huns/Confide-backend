@@ -1,7 +1,4 @@
 require("dotenv").config();
-const axios = require("axios");
-const jwt = require("../utils/jwtUtils");
-const { getDB } = require("../db");
 
 const KAKAO_CLIENT_ID = process.env.KAKAO_CLIENT_ID;
 const KAKAO_REDIRECT_URI = process.env.KAKAO_REDIRECT_URI;

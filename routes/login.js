@@ -8,7 +8,12 @@ const KAKAO_REDIRECT_URI = process.env.KAKAO_REDIRECT_URI;
 
 const login = async (req, res) => {
   //클라이언트에서 인가코드 받기
-  const code = req.query.code;
+  const { code, state } = req.query;
+
+  if (!req.session.oauteState || req.session.oauthState !== state) {
+    return res.status(400).json({ error: "로그인 오류!" });
+  }
+
   try {
     //인가코드로 카카오 토큰 받아오기
     const authRes = await axios.post(
@@ -61,16 +66,19 @@ const login = async (req, res) => {
       secure: true,
       sameSite: "None",
     });
-    //access 토큰 json으로 전송
-    res.setHeader("accessToken", accessToken);
-    res.setHeader("userId", userId);
 
-    res.redirect("https://confide-service.netlify.app/auth");
+    //access 토큰 json으로 전송
+    res.status(200).json({
+      accessToken,
+      userId,
+    });
   } catch (err) {
     res.status(400).send({
       ok: false,
       message: err.message,
     });
+  } finally {
+    delete req.session.oauthState;
   }
 };
 

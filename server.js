@@ -16,6 +16,15 @@ app.use(
 
 app.use(express.json());
 
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true, httpOnly: true, sameSite: "Strict" },
+  })
+);
+
 app.get("/", (req, res) => {
   res.status(200).send("Server is running smoothly.");
 });
