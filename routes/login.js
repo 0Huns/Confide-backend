@@ -83,7 +83,7 @@ const login = async (req, res) => {
       message: err.message,
     });
   } finally {
-    await db.collection("sessions").deleteOne({ state: stateValue });
+    await db.collection("session").deleteOne({ state: state });
   }
 };
 
