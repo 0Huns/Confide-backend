@@ -5,7 +5,6 @@ const { connectDB } = require("./db");
 const { getDB } = require("./db");
 const router = require("./routes");
 const session = require("express-session");
-const MongoStore = require("connect-mongo");
 const app = express();
 const PORT = process.env.PORT;
 
@@ -23,12 +22,7 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    store: MongoStore.create({
-      mongoUrl: process.env.URI,
-      collectionName: "sessions",
-      ttl: 60 * 3,
-    }),
-    cookie: { secure: true, httpOnly: true, sameSite: "None" },
+    cookie: { secure: true, httpOnly: true, sameSite: "Strict" },
   })
 );
 
