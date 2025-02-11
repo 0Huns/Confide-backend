@@ -82,8 +82,6 @@ const login = async (req, res) => {
       ok: false,
       message: err.message,
     });
-  } finally {
-    delete req.session.oauthState;
   }
 };
 
