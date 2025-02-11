@@ -8,7 +8,7 @@ const kakaoCallback = async (req, res) => {
   req.session.oauthState = state;
 
   console.log("카카오에서 받은 code:", req.query.code);
-  console.log("카카오에서 받은 state:", req.query.state);
+  console.log("카카오에서 받은 state:", state);
   res.redirect(
     `https://confide-service.netlify.app/auth?code=${code}&state=${state}`
   );
