@@ -11,6 +11,9 @@ const login = async (req, res) => {
   const code = req.headers["authorization-code"];
   const state = req.headers["authorization-state"];
 
+  console.log("클라에서 받은 code:", code);
+  console.log("클라에서 받은 state:", state);
+
   if (!req.session.oauteState || req.session.oauthState !== state) {
     return res.status(400).json({ error: "로그인 오류!" });
   }
