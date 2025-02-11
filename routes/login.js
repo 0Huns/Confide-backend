@@ -16,7 +16,7 @@ const login = async (req, res) => {
   let sessionState = await db.collection("session").findOne({ state: state });
   console.log(sessionState);
 
-  if (!sessionState || sessionState !== state) {
+  if (!sessionState.state || sessionState.state !== state) {
     return res.status(400).json({ error: "냐하!" });
   }
 
