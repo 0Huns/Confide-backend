@@ -66,6 +66,8 @@ const login = async (req, res) => {
       accessToken,
       userId,
     });
+
+    res.redirect("https://confide-service.netlify.app/auth");
   } catch (err) {
     res.status(400).send({
       ok: false,
