@@ -6,6 +6,7 @@ const kakaoCallback = async (req, res) => {
   const code = req.query.code;
   const state = crypto.randomBytes(16).toString("hex");
   req.session.oauthState = state;
+  console.log(req.session.oauthState);
 
   console.log("카카오에서 받은 code:", req.query.code);
   console.log("카카오에서 받은 state:", state);
