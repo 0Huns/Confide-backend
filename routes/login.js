@@ -8,7 +8,8 @@ const KAKAO_REDIRECT_URI = process.env.KAKAO_REDIRECT_URI;
 
 const login = async (req, res) => {
   //클라이언트에서 인가코드 받기
-  const { code, state } = req.query;
+  const code = req.headers["authorization-code"];
+  const state = req.headers["authorization-state"];
 
   if (!req.session.oauteState || req.session.oauthState !== state) {
     return res.status(400).json({ error: "로그인 오류!" });
